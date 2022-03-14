@@ -1,5 +1,6 @@
 # base image
-FROM python:3.9-slim-buster
+ARG PYTHON_IMAGE
+FROM $PYTHON_IMAGE
 
 # working directory
 WORKDIR /usr/src/app

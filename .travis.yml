@@ -2,8 +2,14 @@ dist: focal
 language: python
 services: docker
 
-before_install:
-  - docker-compose build
-  - docker-compose up -d
+before_install: bash docker-init.sh
 
 script: docker-compose exec api python -m pytest "src/tests"
+
+jobs:
+  include:
+    - stage: test
+      env: PYTHON_IMAGE="python:3.9-slim-buster"
+    - stage: test
+      env: PYTHON_IMAGE="python:3.10-rc-buster"
+      if: branch = 3.10-upgrade
